@@ -1,0 +1,5 @@
+class AppSecrets{
+  static const supabaseUrl="https://duearsfqilitdxhetrup.supabase.co";
+  static const anonKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1ZWFyc2ZxaWxpdGR4aGV0cnVwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0OTk3MTMsImV4cCI6MjA2ODA3NTcxM30.PKOq6Jq_2DrQ9VEGPgHL6cXO58wOVpvwxjERp8vLovc";
+
+}

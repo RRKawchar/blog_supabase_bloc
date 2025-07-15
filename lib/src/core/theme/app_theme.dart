@@ -6,6 +6,13 @@ class AppTheme{
 
   static final darkTheme=ThemeData.dark().copyWith(
     scaffoldBackgroundColor: AppColors.backgroundColor,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.backgroundColor,
+
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      )
+    ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(27),
       border: _border(),
