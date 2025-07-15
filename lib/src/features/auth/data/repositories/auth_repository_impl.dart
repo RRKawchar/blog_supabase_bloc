@@ -9,15 +9,6 @@ class AuthRepositoryImpl implements AuthRepository {
   const AuthRepositoryImpl(this.authRemoteDataSource);
 
   @override
-  Future<Either<Failure, String>> loginWithEmailPassword({
-    required String email,
-    required String password,
-  }) {
-    // TODO: implement loginWithEmailPassword
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, String>> signUpWithEmailPassword({
     required String name,
     required String email,
