@@ -5,6 +5,28 @@ class AppTheme{
 
 
   static final darkTheme=ThemeData.dark().copyWith(
-    scaffoldBackgroundColor: AppColors.backgroundColor
+    scaffoldBackgroundColor: AppColors.backgroundColor,
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(27),
+      border: _border(),
+      enabledBorder: _border(),
+      focusedBorder: _border(color: AppColors.focusBorderColor),
+      errorBorder: _border(color: AppColors.errorColor),
+    ),
+  );
+
+
+
+  static _border({Color? color})=>OutlineInputBorder(
+    borderSide: BorderSide(
+      color:color??AppColors.borderColor,
+      width: 2,
+    ),
+    borderRadius: BorderRadius.circular(10),
   );
 }
+
+
+
+
+
