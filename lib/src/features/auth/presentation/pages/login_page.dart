@@ -7,9 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../../../../core/common/widgets/custom_textfiled.dart';
+import '../../../../core/common/widgets/k_button.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/widgets/custom_textfiled.dart';
-import '../../../../core/widgets/k_button.dart';
+
 import '../../../home/presentation/home_page.dart';
 
 class LoginPage extends StatefulWidget {

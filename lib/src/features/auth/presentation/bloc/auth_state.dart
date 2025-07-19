@@ -1,6 +1,7 @@
 
-import 'package:blog_app/src/features/auth/domain/entities/user_entity.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../../../core/common/entities/user_entity.dart';
 
 @immutable
 sealed class AuthState{

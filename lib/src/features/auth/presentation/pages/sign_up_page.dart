@@ -1,7 +1,5 @@
 import 'package:blog_app/src/core/theme/app_colors.dart';
 import 'package:blog_app/src/core/utils/show_snackbar.dart';
-import 'package:blog_app/src/core/widgets/custom_textfiled.dart';
-import 'package:blog_app/src/core/widgets/k_button.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_event.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_state.dart';
@@ -10,6 +8,9 @@ import 'package:blog_app/src/features/home/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import '../../../../core/common/widgets/custom_textfiled.dart';
+import '../../../../core/common/widgets/k_button.dart';
 
 class SignUpPage extends StatefulWidget {
 
