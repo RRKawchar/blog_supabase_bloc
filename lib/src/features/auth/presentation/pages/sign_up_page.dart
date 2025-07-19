@@ -4,7 +4,7 @@ import 'package:blog_app/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_event.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_state.dart';
 import 'package:blog_app/src/features/auth/presentation/pages/login_page.dart';
-import 'package:blog_app/src/features/home/presentation/home_page.dart';
+import 'package:blog_app/src/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -44,7 +44,7 @@ final TextEditingController passwordController =TextEditingController();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding:const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
           child:BlocConsumer<AuthBloc,AuthState>(
               builder: (context,state){

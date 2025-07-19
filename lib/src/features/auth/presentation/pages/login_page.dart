@@ -11,7 +11,7 @@ import '../../../../core/common/widgets/custom_textfiled.dart';
 import '../../../../core/common/widgets/k_button.dart';
 import '../../../../core/theme/app_colors.dart';
 
-import '../../../home/presentation/home_page.dart';
+import '../../../home/presentation/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   static route()=>MaterialPageRoute(builder: (context)=>const LoginPage());

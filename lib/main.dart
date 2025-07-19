@@ -5,7 +5,7 @@ import 'package:blog_app/src/core/theme/app_theme.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_event.dart';
 import 'package:blog_app/src/features/auth/presentation/pages/login_page.dart';
-import 'package:blog_app/src/features/home/presentation/home_page.dart';
+import 'package:blog_app/src/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -39,34 +39,37 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   
-  @override
-  void initState() {
-    super.initState();
-    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
-  }
-  
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+  // }
+  //
   @override
   Widget build(BuildContext context) {
-   // final session=Supabase.instance.client.auth.currentSession;
+    final session=Supabase.instance.client.auth.currentSession;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Blog App',
       theme: AppTheme.darkTheme,
-      home:BlocSelector<AppUserCubit,AppUserState,bool>(
+      home:session !=null?HomePage():LoginPage(),
 
-
-          selector: (state) {
-            return state is AppUserLoggedIn;
-
-          },
-          builder: (BuildContext context, isLoggedIn) {
-              if(isLoggedIn){
-                return HomePage();
-              }
-              return LoginPage();
-          },
-         ),
       builder: EasyLoading.init(),
     );
   }
 }
+
+// BlocSelector<AppUserCubit,AppUserState,bool>(
+
+
+// selector: (state) {
+// return state is AppUserLoggedIn;
+//
+// },
+// builder: (BuildContext context, isLoggedIn) {
+// if(isLoggedIn){
+// return HomePage();
+// }
+// return LoginPage();
+// },
+// ),

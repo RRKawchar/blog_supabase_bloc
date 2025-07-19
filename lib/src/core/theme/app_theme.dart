@@ -13,13 +13,18 @@ class AppTheme{
         color: Colors.white,
       )
     ),
-    inputDecorationTheme: InputDecorationTheme(
+    inputDecorationTheme:InputDecorationTheme(
       contentPadding: const EdgeInsets.all(27),
       border: _border(),
       enabledBorder: _border(),
       focusedBorder: _border(color: AppColors.focusBorderColor),
       errorBorder: _border(color: AppColors.errorColor),
     ),
+
+    chipTheme:const ChipThemeData(
+      color: WidgetStatePropertyAll(AppColors.backgroundColor),
+      side: BorderSide.none
+    )
   );
 
 

@@ -1,4 +1,6 @@
 import 'package:blog_app/src/features/auth/presentation/pages/login_page.dart';
+import 'package:blog_app/src/features/home/presentation/pages/add_new_blog_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -16,18 +18,26 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: ()async{
-            await Supabase.instance.client.auth.signOut();
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => LoginPage()),
-                  (route) => false,
-            );
+          
+          IconButton(onPressed: (){
+            Navigator.push(context, AddNewBlogPage.route());
 
-          }, icon: Icon(Icons.logout))
+          }, icon: Icon(CupertinoIcons.add_circled,size: 35,)),
+         
         ],
       ),
       body: Center(child: Text("Home Page"),),
     );
   }
 }
+
+
+// IconButton(onPressed: ()async{
+// await Supabase.instance.client.auth.signOut();
+// Navigator.pushAndRemoveUntil(
+// context,
+// MaterialPageRoute(builder: (_) => LoginPage()),
+// (route) => false,
+// );
+//
+// }, icon: Icon(Icons.logout))
