@@ -1,5 +1,6 @@
 import 'package:blog_app/src/core/error/exceptions.dart';
 import 'package:blog_app/src/core/error/failures.dart';
+import 'package:blog_app/src/core/services/connection_checker.dart';
 import 'package:blog_app/src/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:blog_app/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
@@ -8,7 +9,8 @@ import '../../../../core/common/entities/user_entity.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource authRemoteDataSource;
-  const AuthRepositoryImpl(this.authRemoteDataSource);
+  final ConnectionChecker connectionChecker;
+  const AuthRepositoryImpl({required this.authRemoteDataSource,required this.connectionChecker});
 
 
   @override
@@ -63,6 +65,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Either<Failure, UserEntity>> _getUser(
       Future<UserEntity> Function() fn,
       ) async {
+    if(!await (connectionChecker.isConnected)){
+      return left(Failure("No Internet connection"));
+    }
+
     try {
       final user = await fn();
 

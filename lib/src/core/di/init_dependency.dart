@@ -1,5 +1,6 @@
 
 import 'package:blog_app/src/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:blog_app/src/core/services/connection_checker.dart';
 import 'package:blog_app/src/features/auth/data/data_sources/auth_remote_data_source.dart';
 import 'package:blog_app/src/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:blog_app/src/features/auth/domain/repositories/auth_repository.dart';
@@ -14,6 +15,7 @@ import 'package:blog_app/src/features/home/domain/usecases/blog_usecase.dart';
 import 'package:blog_app/src/features/home/domain/usecases/get_blog_usecase.dart';
 import 'package:blog_app/src/features/home/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../secrets/app_secrets.dart';
@@ -21,17 +23,19 @@ import '../secrets/app_secrets.dart';
 final getIt=GetIt.instance;
 
 Future<void> initDependency()async{
-
+  _authInit();
+  _blogInit();
+  
   await Supabase.initialize(
     url: AppSecrets.supabaseUrl,
     anonKey: AppSecrets.anonKey,
   );
 
 getIt.registerLazySingleton(()=>Supabase.instance.client);
+getIt.registerFactory<InternetConnectionChecker>(()=>InternetConnectionChecker.instance);
 getIt.registerLazySingleton(()=>AppUserCubit());
+getIt.registerFactory<ConnectionChecker>(()=>ConnectionCheckerImpl(getIt()));
 
-_authInit();
-_blogInit();
   
 }
 
@@ -40,7 +44,7 @@ void _authInit(){
   
   getIt.registerFactory<AuthRemoteDataSource>(()=>AuthRemoteDataSourceImpl(getIt()));
 
-  getIt.registerFactory<AuthRepository>(()=>AuthRepositoryImpl(getIt()));
+  getIt.registerFactory<AuthRepository>(()=>AuthRepositoryImpl(authRemoteDataSource: getIt(),connectionChecker: getIt()));
   getIt.registerFactory(()=>UserSignUp(getIt()));
   getIt.registerFactory(()=>UserLogin(getIt()));
   getIt.registerFactory(()=>CurrentUser(getIt()));

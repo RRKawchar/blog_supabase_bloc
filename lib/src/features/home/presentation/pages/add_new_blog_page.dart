@@ -105,11 +105,16 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                 child: Column(
                   children: [
                     selectedImage != null
-                        ? SizedBox(
-                            height: 150,
-                            width: double.infinity,
-                            child: Image.file(selectedImage!),
-                          )
+                        ? GestureDetector(
+                         onTap: () {
+                        selectImage();
+                      },
+                          child: SizedBox(
+                              height: 150,
+                              width: double.infinity,
+                              child: Image.file(selectedImage!),
+                            ),
+                        )
                         : InkWell(
                             onTap: () {
                               selectImage();
