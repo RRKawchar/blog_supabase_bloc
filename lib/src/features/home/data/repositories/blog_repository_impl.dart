@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:blog_app/src/core/error/exceptions.dart';
 import 'package:blog_app/src/core/error/failures.dart';
+import 'package:blog_app/src/features/auth/presentation/bloc/auth_state.dart';
 import 'package:blog_app/src/features/home/data/datasources/blog_remote_data_source.dart';
 import 'package:blog_app/src/features/home/data/models/blog_model.dart';
 import 'package:blog_app/src/features/home/domain/entities/blog_entity.dart';
@@ -48,7 +49,8 @@ class BlogRepositoryImpl implements BlogRepository{
    return right(blogData);
 
     }on ServerException catch(e){
-      throw left(Failure(e.message));
+      print("dkdjkfdkf dkfd :$e");
+      return left(Failure(e.message));
     }
 
   }

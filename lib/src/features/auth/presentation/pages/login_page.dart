@@ -42,6 +42,9 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(15.0),
         child: BlocConsumer<AuthBloc,AuthState>(
             builder: (context,state){
+              if (state is AuthLoading) {
+                return Center(child: CircularProgressIndicator(),);
+              }
               return Form(
                 key: formKey,
                 child: Column(
@@ -95,17 +98,10 @@ class _LoginPageState extends State<LoginPage> {
               );
             },
             listener: (context,state){
-              if (state is AuthLoading) {
-                EasyLoading.show(status: 'Signing up...');
-              } else {
-                EasyLoading.dismiss();
-              }
 
               if(state is AuthFailure){
                 showSnackBar(context, state.message);
-              }
-
-              if(state is AuthSuccess){
+              }else if(state is AuthSuccess){
                 Navigator.push(context,HomePage.route());
               }
             }

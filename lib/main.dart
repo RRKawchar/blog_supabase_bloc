@@ -43,37 +43,37 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<AuthBloc>().add(AuthIsUserLoggedIn());
-  // }
-  //
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+  }
+
   @override
   Widget build(BuildContext context) {
-    final session=Supabase.instance.client.auth.currentSession;
+    //final session=Supabase.instance.client.auth.currentSession;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Blog App',
       theme: AppTheme.darkTheme,
-      home:session !=null?HomePage():LoginPage(),
+      home:BlocSelector<AppUserCubit,AppUserState,bool>(
+
+
+        selector: (state) {
+          return state is AppUserLoggedIn;
+
+        },
+        builder: (BuildContext context, isLoggedIn) {
+          if(isLoggedIn){
+            return HomePage();
+          }
+          return LoginPage();
+        },
+      ),
 
       builder: EasyLoading.init(),
     );
   }
 }
 
-// BlocSelector<AppUserCubit,AppUserState,bool>(
 
-
-// selector: (state) {
-// return state is AppUserLoggedIn;
-//
-// },
-// builder: (BuildContext context, isLoggedIn) {
-// if(isLoggedIn){
-// return HomePage();
-// }
-// return LoginPage();
-// },
-// ),

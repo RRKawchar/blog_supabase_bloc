@@ -10,10 +10,10 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
 
   BlogBloc({required this.uploadBlogUseCase}) : super(BlogInitial()) {
     on<BlogEvent>((event, emit) => emit(BlogLoading()));
-    on<BlogUpload>(_onBlogUpload);
+    on<BlogUploadEvent>(_onBlogUpload);
   }
 
-  void _onBlogUpload(BlogUpload event, Emitter<BlogState> emit) async {
+  void _onBlogUpload(BlogUploadEvent event, Emitter<BlogState> emit) async {
    final res= await uploadBlogUseCase(
       UploadBlogParams(
         posterId: event.posterId,
