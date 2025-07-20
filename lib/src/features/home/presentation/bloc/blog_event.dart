@@ -3,7 +3,7 @@ part of 'blog_bloc.dart';
 @immutable
 abstract class BlogEvent {}
 
-class BlogUploadEvent extends BlogEvent {
+final class BlogUploadEvent extends BlogEvent {
   final String posterId;
   final String title;
   final String content;
@@ -18,3 +18,6 @@ class BlogUploadEvent extends BlogEvent {
     required this.topics,
   });
 }
+
+final class GetAllBlogEvent extends BlogEvent{}
+

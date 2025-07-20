@@ -9,4 +9,9 @@ class BlogFailure extends BlogState {
   final String error;
   BlogFailure(this.error);
 }
-class BlogSuccess extends BlogState {}
+class BlogUploadSuccess extends BlogState {}
+
+class BlogGetAllSuccess extends BlogState {
+  final List<BlogEntity> blogEntity;
+  BlogGetAllSuccess(this.blogEntity);
+}

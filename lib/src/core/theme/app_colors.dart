@@ -9,4 +9,5 @@ class AppColors{
   static const Color errorColor = Colors.redAccent;
   static const Color buttonColor = Color(0xFF806000);
   static const Color transparentColor = Colors.transparent;
+  static const Color cardColor = Color(0xFF009999);
 }

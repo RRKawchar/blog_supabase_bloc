@@ -11,6 +11,7 @@ import 'package:blog_app/src/features/home/data/datasources/blog_remote_data_sou
 import 'package:blog_app/src/features/home/data/repositories/blog_repository_impl.dart';
 import 'package:blog_app/src/features/home/domain/repositories/blog_repository.dart';
 import 'package:blog_app/src/features/home/domain/usecases/blog_usecase.dart';
+import 'package:blog_app/src/features/home/domain/usecases/get_blog_usecase.dart';
 import 'package:blog_app/src/features/home/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -61,8 +62,10 @@ void _blogInit(){
 
   getIt.registerFactory<BlogRepository>(()=>BlogRepositoryImpl(getIt()));
   getIt.registerFactory(()=>UploadBlogUseCase(getIt()));
+  getIt.registerFactory(()=>GetBlogUseCase(getIt()));
   getIt.registerLazySingleton(()=>BlogBloc(
       uploadBlogUseCase:  getIt(),
+      getBlogUseCase: getIt()
 
   ));
 
