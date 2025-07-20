@@ -7,6 +7,11 @@ import 'package:blog_app/src/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_app/src/features/auth/domain/usecases/user_login.dart';
 import 'package:blog_app/src/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:blog_app/src/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:blog_app/src/features/home/data/datasources/blog_remote_data_source.dart';
+import 'package:blog_app/src/features/home/data/repositories/blog_repository_impl.dart';
+import 'package:blog_app/src/features/home/domain/repositories/blog_repository.dart';
+import 'package:blog_app/src/features/home/domain/usecases/blog_usecase.dart';
+import 'package:blog_app/src/features/home/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -25,6 +30,7 @@ getIt.registerLazySingleton(()=>Supabase.instance.client);
 getIt.registerLazySingleton(()=>AppUserCubit());
 
 _authInit();
+_blogInit();
   
 }
 
@@ -46,4 +52,19 @@ void _authInit(){
   ));
 
   
+}
+
+
+void _blogInit(){
+
+  getIt.registerFactory<BlogRemoteDataSource>(()=>BlogRemoteDateSourceImpl(getIt()));
+
+  getIt.registerFactory<BlogRepository>(()=>BlogRepositoryImpl(getIt()));
+  getIt.registerFactory(()=>UploadBlogUseCase(getIt()));
+  getIt.registerLazySingleton(()=>BlogBloc(
+      uploadBlogUseCase:  getIt(),
+
+  ));
+
+
 }

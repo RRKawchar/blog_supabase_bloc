@@ -1,0 +1,56 @@
+import 'dart:io';
+
+import 'package:blog_app/src/core/error/exceptions.dart';
+import 'package:blog_app/src/core/error/failures.dart';
+import 'package:blog_app/src/features/home/data/datasources/blog_remote_data_source.dart';
+import 'package:blog_app/src/features/home/data/models/blog_model.dart';
+import 'package:blog_app/src/features/home/domain/entities/blog_entity.dart';
+import 'package:blog_app/src/features/home/domain/repositories/blog_repository.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:uuid/uuid.dart';
+
+
+class BlogRepositoryImpl implements BlogRepository{
+ final BlogRemoteDataSource blogRemoteDataSource;
+ BlogRepositoryImpl(this.blogRemoteDataSource);
+
+  @override
+  Future<Either<Failure, BlogEntity>> uploadBlogs({
+    required File image,
+    required String title,
+    required String content,
+    required String posterId,
+    required List<String> topics,
+  }) async{
+    try{
+
+      BlogModel blogModel=BlogModel(
+          id: const Uuid().v1(),
+          posterId: posterId,
+          title: title,
+          content: content,
+          imageUrl: '',
+          topics: topics,
+          updatedAt: DateTime.now()
+      );
+
+
+    final imageUrl=await blogRemoteDataSource.uploadBlogImage(
+          image: image,
+          blogModel: blogModel,
+      );
+
+    blogModel=blogModel.copyWith(
+      imageUrl: imageUrl
+    );
+
+   final blogData= await blogRemoteDataSource.uploadBlog(blogModel);
+   return right(blogData);
+
+    }on ServerException catch(e){
+      throw left(Failure(e.message));
+    }
+
+  }
+
+}
