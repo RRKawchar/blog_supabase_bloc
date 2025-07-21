@@ -2,9 +2,9 @@ import 'package:blog_app/src/core/error/exceptions.dart';
 import 'package:blog_app/src/core/error/failures.dart';
 import 'package:blog_app/src/core/services/connection_checker.dart';
 import 'package:blog_app/src/features/auth/data/data_sources/auth_remote_data_source.dart';
+import 'package:blog_app/src/features/auth/data/models/user_model.dart';
 import 'package:blog_app/src/features/auth/domain/repositories/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
-
 import '../../../../core/common/entities/user_entity.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -16,6 +16,19 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, UserEntity>> currentUser()async {
     try{
+
+      if(!await (connectionChecker.isConnected)){
+       final session= authRemoteDataSource.currentUserSession;
+       if(session==null){
+         return left(Failure("User not logged in"));
+       }
+
+       return right(UserModel(
+           id: session.user.id,
+           email: session.user.email??"",
+           name: "",
+       ),);
+      }
 
       final user=await authRemoteDataSource.getCurrentUserData();
       
@@ -73,7 +86,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = await fn();
 
       return right(user);
-    } on ServerException catch (e) {
+    }on ServerException catch (e) {
       return left(Failure(e.toString()));
     }
   }

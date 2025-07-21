@@ -1,7 +1,7 @@
-
-
+import 'package:json_annotation/json_annotation.dart';
 import '../../../../core/common/entities/user_entity.dart';
 
+@JsonSerializable(explicitToJson: true)
 class UserModel extends UserEntity {
   UserModel({
     required super.id,

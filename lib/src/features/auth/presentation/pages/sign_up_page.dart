@@ -48,7 +48,9 @@ final TextEditingController passwordController =TextEditingController();
         child: SingleChildScrollView(
           child:BlocConsumer<AuthBloc,AuthState>(
               builder: (context,state){
-
+                if (state is AuthLoading) {
+                  return Center(child: CircularProgressIndicator(),);
+                }
                 return Form(
                   key: formKey,
                   child: Column(
@@ -107,19 +109,13 @@ final TextEditingController passwordController =TextEditingController();
               },
               listener: (context,state){
 
-                if (state is AuthLoading) {
-                  EasyLoading.show(status: 'Signing up...');
-                } else {
-                  EasyLoading.dismiss();
-                }
-
-                if (state is AuthSuccess) {
-                  Navigator.push(context,HomePage.route());
-                }
-
                 if (state is AuthFailure) {
-                 showSnackBar(context, state.message);
+                  showSnackBar(context, state.message);
+                }else if (state is AuthSuccess) {
+                  Navigator.pushAndRemoveUntil(context, HomePage.route(), (route)=>false);
                 }
+
+
               }
           ),
 

@@ -1,3 +1,4 @@
+import 'package:blog_app/src/core/common/widgets/custom_network_image.dart';
 import 'package:blog_app/src/core/utils/calculate_reading_time.dart';
 import 'package:blog_app/src/core/utils/format_date.dart';
 import 'package:blog_app/src/features/home/domain/entities/blog_entity.dart';
@@ -34,7 +35,7 @@ class BlogViewerPage extends StatelessWidget {
                 const SizedBox(height: 15),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Image.network(blogs.imageUrl,),
+                  child:  CustomNetworkImage(imageUrl: blogs.imageUrl,height: 200,width: double.infinity,),
                 ),
                 const SizedBox(height: 15),
                 Text(blogs.content, style:const TextStyle(fontSize: 16,height: 2)),
